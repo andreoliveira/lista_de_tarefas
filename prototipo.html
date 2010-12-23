@@ -24,13 +24,17 @@
 		margin:10px;
     }
 
-    .task_done{
-        background-color:green;
+    .task_done span{
+        text-decoration:line-through;
     }
 
-    .task_undone
+    .task_undone span
     {
-        background-color:white;
+         text-decoration:none;
+    }
+    
+    .task_done input{
+    	text-decoration: none;
     }
 	</style>
 	<body>
@@ -40,11 +44,11 @@
 		<div class="lista">
 			<h2>Lista 1</h2>
 			<ul id="atividades">
-				<li><input type="checkbox" />Tarefa 1</li>
-				<li><input type="checkbox" />Tarefa 2</li>
-				<li><input type="checkbox" />Tarefa 3</li>
-				<li><input type="checkbox" />Tarefa 4</li>
-				<li><input type="checkbox" />Tarefa 5</li>
+				<li><input type="checkbox" /><span>Tarefa 1</span></li>
+				<li><input type="checkbox" /><span>Tarefa 2</span></li>
+				<li><input type="checkbox" /><span>Tarefa 3</span></li>
+				<li><input type="checkbox" /><span>Tarefa 4</span></li>
+				<li><input type="checkbox" /><span>Tarefa 5</span></li>
 			</ul>
 		</div>
 		
@@ -72,7 +76,7 @@
 
 			$(document).ready(function() {
 				$('#btnAdd').click(function() {
-					$('#atividades').append('<li><input type="checkbox" />'+ $('#txtTarefa').val() +'</li>');
+					$('#atividades').append('<li><input type="checkbox" /><span>'+ $('#txtTarefa').val() +'</span></li>');
                 });
 
                 jQuery.each($(':checkbox:checked'), function(e,i){ $(i).parent().addClass('task_done').removeClass('task_undone'); });                 
