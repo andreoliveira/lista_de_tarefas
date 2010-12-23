@@ -22,7 +22,16 @@
 	.lista{
 		border-top:1px solid gray;
 		margin:10px;
-	}
+    }
+
+    .task_done{
+        background-color:green;
+    }
+
+    .task_undone
+    {
+        background-color:white;
+    }
 	</style>
 	<body>
 	
@@ -49,11 +58,26 @@
 			</form>
 		</div>
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-		<script type="text/javascript" >
+        <script type="text/javascript" >
+            onTaskCheck = function(){ 
+                if ($(this).is(':checked'))
+                {
+                    $(this).parent().addClass('task_done').removeClass('task_undone');
+                }
+                else
+                {
+                    $(this).parent().addClass('task_undone').removeClass('task_done');
+                }
+            }
+
 			$(document).ready(function() {
 				$('#btnAdd').click(function() {
 					$('#atividades').append('<li><input type="checkbox" />'+ $('#txtTarefa').val() +'</li>');
-				});
+                });
+
+                jQuery.each($(':checkbox:checked'), function(e,i){ $(i).parent().addClass('task_done').removeClass('task_undone'); });                 
+
+                $(':checkbox').live('change',onTaskCheck);
 			});
 		</script>
 	</body>
