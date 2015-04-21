@@ -4,8 +4,6 @@
 	<head>
 		<title>Lista de Tarefas</title>
 		
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-
 	</head>
 	
 	<style type="text/css">
@@ -24,7 +22,16 @@
 	.lista{
 		border-top:1px solid gray;
 		margin:10px;
-	}
+    }
+
+    .task_done{
+        background-color:green;
+    }
+
+    .task_undone
+    {
+        background-color:white;
+    }
 	</style>
 	<body>
 	
@@ -32,7 +39,7 @@
 		
 		<div class="lista">
 			<h2>Lista 1</h2>
-			<ul>
+			<ul id="atividades">
 				<li><input type="checkbox" />Tarefa 1</li>
 				<li><input type="checkbox" />Tarefa 2</li>
 				<li><input type="checkbox" />Tarefa 3</li>
@@ -46,9 +53,32 @@
 			
 			<form name="">
 			
-				<input  type="text" size="50"/>
-				<input type="button" value="Adicionar tarefa"/>
+				<input id="txtTarefa" type="text" size="50"/>
+				<input id="btnAdd" type="button" value="Adicionar tarefa"/>
 			</form>
 		</div>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+        <script type="text/javascript" >
+            onTaskCheck = function(){ 
+                if ($(this).is(':checked'))
+                {
+                    $(this).parent().addClass('task_done').removeClass('task_undone');
+                }
+                else
+                {
+                    $(this).parent().addClass('task_undone').removeClass('task_done');
+                }
+            }
+
+			$(document).ready(function() {
+				$('#btnAdd').click(function() {
+					$('#atividades').append('<li><input type="checkbox" />'+ $('#txtTarefa').val() +'</li>');
+                });
+
+                jQuery.each($(':checkbox:checked'), function(e,i){ $(i).parent().addClass('task_done').removeClass('task_undone'); });                 
+
+                $(':checkbox').live('change',onTaskCheck);
+			});
+		</script>
 	</body>
 </html>
